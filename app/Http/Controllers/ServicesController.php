@@ -122,7 +122,7 @@ class ServicesController extends Controller
             $nameimg = $file->getClientOriginalName();
             $file->move('uploads/', $nameimg);
             $this->validate($request, [
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=500,min_height=500',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=200,min_height=200',
             ]);
             DB::table('services')
                 ->where('SV_ID', $id)

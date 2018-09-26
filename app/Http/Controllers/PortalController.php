@@ -25,7 +25,18 @@ class PortalController extends Controller
             ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
             ->select('services.*', 'serviceprov.name as SP_NAME', 'categories.name as CAT_NAME')
             ->orderBy('created_date', 'desc')->get();
-       return view('portal')->with('services', $services)->with('latestservices', $latestservices);
+            $cat=DB::table('categories')->select('*')->orderBy('CAT_ID', 'asc')->limit(3)->get();
+            
+       return view('portal')->with('services', $services)->with('latestservices', $latestservices)->with('catlist', $cat);
+    }
+
+    public function getSvByCatID($id){
+        $cat = DB::table('services')
+        ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
+        ->select('services.*', 'categories.name as CAT_NAME')
+        ->where('categories.CAT_ID', $id)
+        ->orderBy('created_date', 'desc')->get();
+        return $cat;
     }
 
     /**
@@ -62,6 +73,7 @@ class PortalController extends Controller
         ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
         ->select('services.*', 'serviceprov.name as SP_NAME', 'categories.name as CAT_NAME')
         ->where('SV_ID',$id)->get();
+        
         return view('viewservice')->with('services', $services);
     }
 

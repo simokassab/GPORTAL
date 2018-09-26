@@ -17,6 +17,8 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('portal/getCat/{id}', 'PortalController@getSvByCatID');
+
 
 Route::get('/serviceprovider', 'PagesController@serviceprovider');
 Route::get('/services', 'PagesController@services');

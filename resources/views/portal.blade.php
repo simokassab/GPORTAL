@@ -40,13 +40,11 @@
                 <div class="gradient3"  style="cursor: pointer;">
                     <h2 style="color: white" id='latest' align="center">LATEST SERVICES</h2>
                     <div id="latest_content" style="display: none;">
-                            <center><center>
+                            <center>
                                 <ol class="list-group custom-counter" id="listservices">
                                     @foreach ($latestservices as $lat)
-                                <li class="list-group-item liservice" id='{{$lat->SV_ID}}'>{!! $lat->name !!}</li>  
-                                    @endforeach
-                                    
-                                    
+                                         <li class="list-group-item liservice" id='{{$lat->SV_ID}}'>{!! $lat->name !!}</li>  
+                                    @endforeach   
                                 </ol></center>
                      </div>
                 </div>
@@ -54,39 +52,39 @@
                 <div class="gradient3"   style="cursor: pointer;">
                     <h2 style="color: white !important;" id='top' align="center">TOP 10 SERVICES</h2>
                     <div id="top_content" style="display: none;">
-                        
-                        </center>
+                        <center><h2>Content 2</h2></center>
                      </div>
                 </div>
                 <div class="gradient4" id="gr4"></div>
-                <div class="gradient3"   style="cursor: pointer;">
-                    <h2 style="color: white !important;" id='cat1' align="center">CAT 1 SERVICES</h2>
-                    <div id="cat1_content" style="display: none;">
-                        <center><h2>Content 3</h2></center>
+                    <div class="gradient3"   style="cursor: pointer;">
+                        <h2 style="color: white !important;" id='cat1' name='{{$catlist[0]->CAT_ID}}' align="center">{{$catlist[0]->name}} SERVICES</h2>
+                        <div id="cat1_content" style="display: none;">
+                            
+                        </div>
                     </div>
-                </div>
-                <div class="gradient4" id="gr4"></div>
-                <div class="gradient3"   style="cursor: pointer;">
-                    <h2 style="color: white !important;" id='cat2' align="center">CAT 2 SERVICES</h2>
-                    <div id="cat2_content" style="display: none;">
-                        <center><h2>Content 4</h2></center>
+                    <div class="gradient4" id="gr4"></div>
+                    <div class="gradient3"   style="cursor: pointer;">
+                        <h2 style="color: white !important;" id='cat2' name='{{$catlist[1]->CAT_ID}}' align="center">{{$catlist[1]->name}} SERVICES</h2>
+                        <div id="cat2_content" style="display: none;">
+                            <center><h2>Content 3</h2></center>
+                        </div>
                     </div>
-                </div>
+                    <div class="gradient4" id="gr4"></div>
             </div>
         </div>
     </body>
 </html>
 
 <script>
+    function GetContent(id){
+        location.href = 'portal/'+id;
+    }
 $(document).ready(function() {
     $(".col-md-6").click(function(){ 
         $id=$(this).attr('id');
         location.href = 'portal/'+$id;
      }); 
-     $(".liservice").click(function(){ 
-        $id=$(this).attr('id');
-        location.href = 'portal/'+$id;
-     });
+    
     $("#latest").click(function(){
         $('#latest_content').toggle("slide");
         $('#top_content').slideUp("fast");
@@ -99,17 +97,66 @@ $(document).ready(function() {
         $('#cat1_content').slideUp("fast");
         $('#cat2_content').slideUp("fast");
     }); 
+    
     $("#cat1").click(function(){
         $('#cat1_content').toggle("slide");
+        $.ajax({
+        url: "portal/getCat/"+$(this).attr('name'),
+        type: "get",
+        data:  $(this).attr('name'),
+        success: function (response) {
+            var output=" <center><ol class='list-group custom-counter'>";
+            for (var i in response) 
+            {
+                output+="<li class='list-group-item' onclick='GetContent(\""+response[i].SV_ID+"\")' id='"+response[i].SV_ID+"'>" + response[i].name + ",  " + response[i].description + "</li>";
+            }
+            output+="</ol></center>";
+            
+            $('#cat1_content').html(output);       
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           console.log(textStatus, errorThrown);
+        }
+
+
+    });
+       // $('#cat1_content').toggle("slide");
         $('#latest_content').slideUp("fast");
         $('#top_content').slideUp("fast");
         $('#cat2_content').slideUp("fast");
     }); 
     $("#cat2").click(function(){
         $('#cat2_content').toggle("slide");
+        $.ajax({
+            url: "portal/getCat/"+$(this).attr('name'),
+            type: "get",
+            data:  $(this).attr('name'),
+            success: function (response) {
+                var output=" <center><ol class='list-group custom-counter'>";
+                for (var i in response) 
+                {
+                    output+="<li class='list-group-item' onclick='GetContent(\""+response[i].SV_ID+"\")' id='"+response[i].SV_ID+"'>" + response[i].name + ",  " + response[i].description + "</li>";
+                }
+                output+="</ol></center>";
+                
+                $('#cat2_content').html(output);       
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+            }
+        });
         $('#latest_content').slideUp("fast");
         $('#cat1_content').slideUp("fast");
         $('#top_content').slideUp("fast ");
     }); 
+    $(".list-group-item").click(function(){ 
+        $id=$(this).attr('id');
+        alert   ($id);
+      //  location.href = 'portal/'+$id;
+     });
+     
+
 });
 </script>
