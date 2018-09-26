@@ -1,6 +1,5 @@
 
-body { background-image: url('background.png') !important;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
+body {   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif !important;
   }
 
 #content {
@@ -19,6 +18,29 @@ body { background-image: url('background.png') !important;
   margin-top:-10px; 
   height:5px;
 }
+
+.custom-counter {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style-type: none !important;
+}
+
+.liservice {
+  counter-increment: step-counter !important;
+  margin-bottom: 10px !important;
+}
+
+.liservice::before {
+  content: counter(step-counter) !important;
+  margin-right: 5px !important;
+  font-size: 80% !important;
+  background-color: rgb(0,200,200) !important;
+  color: white !important;
+  font-weight: bold !important;
+  padding: 3px 8px !important;
+  border-radius: 3px !important;
+}
+
 
 .gradient1
 {

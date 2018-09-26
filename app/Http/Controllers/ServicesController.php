@@ -47,12 +47,14 @@ class ServicesController extends Controller
     {
         $this->validate($request,[
             'name' =>'required',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'required',
+            'body' => 'required'
         ]);
         $name =$request->input('name');
         $file = $request->file('image');
         $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=500,min_height=500',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=200,min_height=200',
         ]);
         $nameimg = $file->getClientOriginalName();
         $file->move('uploads/', $nameimg);
@@ -60,6 +62,7 @@ class ServicesController extends Controller
                                         'description' => $request->input('description'),
                                         'SP_ID_FK' => $request->input('serviceprov'),
                                         'CAT_ID_FK' => $request->input('cat'),
+                                        'body' => $request->input('body'),
                                         'images' =>  $nameimg,
                                         'created_date' => Carbon::now(),
                                         'active' => 1 ]);
@@ -110,7 +113,8 @@ class ServicesController extends Controller
     {
         $this->validate($request,[
             'name' =>'required',
-            'description' => 'required'
+            'description' => 'required',
+            'body' => 'required'
         ]);
         $name =$request->input('name');
         $file = $request->file('image');
@@ -126,6 +130,7 @@ class ServicesController extends Controller
                           'description' => $request->input('description'),
                           'SP_ID_FK' => $request->input('serviceprov'),
                           'CAT_ID_FK' => $request->input('cat'),
+                          'body' => $request->input('body'),
                           'images' =>  $nameimg
                           ]);
         }
@@ -135,7 +140,8 @@ class ServicesController extends Controller
             ->update(['name' =>  $name,
                       'description' => $request->input('description'),
                       'SP_ID_FK' => $request->input('serviceprov'),
-                      'CAT_ID_FK' => $request->input('cat')
+                      'CAT_ID_FK' => $request->input('cat'),
+                      'body' => $request->input('body')
                       ]);
         }    
         return redirect('/services')->with('success', 'Service UPDATED !');

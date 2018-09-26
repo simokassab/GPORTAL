@@ -62,7 +62,7 @@ class PortalController extends Controller
         ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
         ->select('services.*', 'serviceprov.name as SP_NAME', 'categories.name as CAT_NAME')
         ->where('SV_ID',$id)->get();
-        return $services;
+        return view('viewservice')->with('services', $services);
     }
 
     /**

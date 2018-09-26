@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     </head>
-    <body>
+    <body >
            
         <div class="container">
            <div class="gradient1" style="margin-top: 20px; width:100%;"> 
@@ -25,6 +25,7 @@
                             <img class="img-thumbnail"  src="uploads/{{$ser->images}}" style="max-height:300px; max-width:500px;" alt="{{$ser->name}}">
                             <h3 align="center">{{$ser->name}}</h3>
                                 <div class="card-body">
+                                    <p>{!! str_limit($ser->description, 30) !!}</p>
                                     <small class="text-muted">Provider: {!! $ser->SP_NAME  !!} </small> 
                                     <small class="text-muted">/ Category: {!! $ser->CAT_NAME  !!}</small>
                                  </div>
@@ -37,21 +38,21 @@
             <br>
             <div id="content2">
                 <div class="gradient3"  style="cursor: pointer;">
-                    <h1 style="color: white" id='latest' align="center">LATEST SERVICES</h1>
+                    <h2 style="color: white" id='latest' align="center">LATEST SERVICES</h2>
                     <div id="latest_content" style="display: none;">
                             <center><center>
-                                <ul class="list-group">
+                                <ol class="list-group custom-counter" id="listservices">
                                     @foreach ($latestservices as $lat)
-                                    <li class="list-group-item">{!! $lat->name !!}</li>  
+                                <li class="list-group-item liservice" id='{{$lat->SV_ID}}'>{!! $lat->name !!}</li>  
                                     @endforeach
                                     
                                     
-                                </ul></center>
+                                </ol></center>
                      </div>
                 </div>
                 <div class="gradient4" id="gr4"></div>
                 <div class="gradient3"   style="cursor: pointer;">
-                    <h1 style="color: white !important;" id='top' align="center">TOP 10 SERVICES</h1>
+                    <h2 style="color: white !important;" id='top' align="center">TOP 10 SERVICES</h2>
                     <div id="top_content" style="display: none;">
                         
                         </center>
@@ -59,14 +60,14 @@
                 </div>
                 <div class="gradient4" id="gr4"></div>
                 <div class="gradient3"   style="cursor: pointer;">
-                    <h1 style="color: white !important;" id='cat1' align="center">CAT 1 SERVICES</h1>
+                    <h2 style="color: white !important;" id='cat1' align="center">CAT 1 SERVICES</h2>
                     <div id="cat1_content" style="display: none;">
                         <center><h2>Content 3</h2></center>
                     </div>
                 </div>
                 <div class="gradient4" id="gr4"></div>
                 <div class="gradient3"   style="cursor: pointer;">
-                    <h1 style="color: white !important;" id='cat2' align="center">CAT 2 SERVICES</h1>
+                    <h2 style="color: white !important;" id='cat2' align="center">CAT 2 SERVICES</h2>
                     <div id="cat2_content" style="display: none;">
                         <center><h2>Content 4</h2></center>
                     </div>
@@ -82,6 +83,10 @@ $(document).ready(function() {
         $id=$(this).attr('id');
         location.href = 'portal/'+$id;
      }); 
+     $(".liservice").click(function(){ 
+        $id=$(this).attr('id');
+        location.href = 'portal/'+$id;
+     });
     $("#latest").click(function(){
         $('#latest_content').toggle("slide");
         $('#top_content').slideUp("fast");

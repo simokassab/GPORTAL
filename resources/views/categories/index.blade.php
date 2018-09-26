@@ -23,8 +23,11 @@
                         <span><strong>Edit</strong></span>          
                     </a>   
                     {{form::hidden('_method', 'DELETE')}}
-                        {{form::submit('Delete',  ['class'=>'btn btn-danger', 'id' =>'del', 
-                                                    'onclick' => 'return confirm("Are you sure?")'])}}
+                        {{ Form::button('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete', array(
+                            'type' => 'submit',
+                            'class'=> 'btn btn-danger',
+                            'onclick'=>'return confirm("Are you sure?")'
+                        )) }} 
                     {!! Form::close() !!}
                 </div>
               </div>
@@ -33,7 +36,7 @@
         @endforeach
         {{$cat->links()}}
     @else 
-        <h2>No Category found Available</h2>
+        <h2>No Category found</h2>
     @endif
            
 @endsection

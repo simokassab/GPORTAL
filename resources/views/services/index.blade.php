@@ -14,11 +14,12 @@
                <td width='75%'>
                 <div class="card">
                        
-                    <div class="card-block">
+                    <div class="card-block" style="margin:12px;">
                     <h3 class="card-title">{{$serv->name}}</h3>
-                    <p class="card-text">{!!$serv->description!!}</p>
-                    <p class="card-text">Service Provider: {!!$serv->SP_NAME!!}</p>
-                    <p class="card-text">Category: {!!$serv->CAT_NAME!!}</p>
+                    <p class="card-text"><strong>{!!$serv->description!!}</strong></p>
+                    <p class="card-text">Service Provider:<strong> {!!$serv->SP_NAME!!}</strong></p>
+                    <p class="card-text">Category:<strong> {!!$serv->CAT_NAME!!}</strong></p>
+                    <p class="card-text">SMS: <strong> {!!$serv->body!!} </strong></p>
                     <small>{{$serv->created_date}}</small>
                     
                         {!! Form::open(['action'=> ['ServicesController@destroy', $serv->SV_ID], 'method'=>'POST']) !!}
@@ -27,8 +28,11 @@
                             <span><strong>Edit</strong></span>          
                         </a>   
                         {{form::hidden('_method', 'DELETE')}}
-                            {{form::submit('Delete',  ['class'=>'btn btn-danger', 'id' =>'del', 
-                                                        'onclick' => 'return confirm("Are you sure?")'])}}
+                           {{ Form::button('<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete', array(
+                                'type' => 'submit',
+                                'class'=> 'btn btn-danger',
+                                'onclick'=>'return confirm("Are you sure?")'
+                        )) }}                           
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -41,7 +45,7 @@
         </table>
         {{$services->links()}}
     @else 
-        <h2>No Service Provider Available</h2>
+        <h2>No Service found</h2>
     @endif
            
 @endsection

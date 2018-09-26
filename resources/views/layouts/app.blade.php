@@ -6,8 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>Laravel</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
-    <script src="{{asset('js/jquery.min.js')}}"></script>
+        <link rel="stylesheet" href="{{asset('css/app.css')}}">
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        
+   
     <style>
          .content {
                 text-align: center;
@@ -28,12 +30,10 @@
           @include('inc.messages')      
         @yield('content')
       </div>  
- 
-      <script src="/GPORTAL/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
-      <script>
-          CKEDITOR.replace( 'description-ckeditor' );
-      </script>  
-  
+      <script type="text/javascript" src="{{ URL::asset('/js/jquery.min.js') }}"></script>
+      <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+
+    
     </body>
 </html>
 

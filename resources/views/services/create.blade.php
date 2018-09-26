@@ -29,6 +29,10 @@
               </select>         
         </div>
         <div class="form-group">
+            {{form::label('bodylbl', 'SMS Body')}}
+            {{form::textarea('body', '', ['class'=>'form-control', 'placeholder'=>'Predefined Short Message', ' maxlength' => '100', 'rows' => '4'])}}
+        </div>
+        <div class="form-group">
             {{form::label('img', 'Upload your Image: ')}}
             {!! form::file('image', array('class' => 'form-control')) !!}        
         </div>
