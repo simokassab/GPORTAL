@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $cat=DB::table('categories')->paginate(10);
+        $cat=DB::table('categories')->orderBy('name')->paginate(5);
         return view('categories.index')->with('cat', $cat);
     }
 

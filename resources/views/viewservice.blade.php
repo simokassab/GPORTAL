@@ -43,12 +43,29 @@
                     Category: {!! $ser->CAT_NAME !!} 
                     </span>
                 </p>
-                 <a href="sms://+14035550185?body={{$ser->body}}"  class="btn btn-success btn-lg a-btn-slide-text" style="width: 50%;">
+                 <a href="sms:/1234?body={{$ser->body}}"  class="btn btn-success btn-lg a-btn-slide-text" style="width: 50%;">
                     <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
                      <span><strong>Subscribe</strong></span></a>
             </center>
         @endforeach
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script>
+            $(".btn-success").click(function(){ 
+                $id='{!! $ser->SV_ID !!}';
+                $button='subscribe';
+                $.ajax({
+                    url: "../logs/"+$id+'/'+$button,
+                    type: "get",
+                    data:  '1',
+                    success: function (response) {
+
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                    }
+                });
+            });
+        </script>
     </body>
 </html>

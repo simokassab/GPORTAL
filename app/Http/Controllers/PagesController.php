@@ -15,4 +15,7 @@ class PagesController extends Controller
     public function categories (){
         return view('categories.index');
     }
+    public function reports (){
+        return view('reports.index');
+    }
 }

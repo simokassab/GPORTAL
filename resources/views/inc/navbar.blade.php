@@ -16,6 +16,9 @@
         <li >
                 <a class="nav-link" href="/GPORTAL/public/categories">Categories</a>
           </li>
+          <li >
+              <a class="nav-link" href="/GPORTAL/public/reports">Reports</a>
+        </li>
       </ul>
       <ul class="navbar-nav px-9 pull-right">
         <li class="nav-item">

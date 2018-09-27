@@ -19,10 +19,11 @@
             <br/>
             <div class="gradient2" id="content" style="margin-top:20px;">
                 <div class="row" id="row" style="margin-left:30px; margin-right:30px" >
+               
                     @foreach ($services as $ser)
                      <div class="col-md-6" style="margin-top:30px;" id='{{$ser->SV_ID}}'>
                             <div class="card mb-4 box-shadow">
-                            <img class="img-thumbnail"  src="uploads/{{$ser->images}}" style="max-height:300px; max-width:500px;" alt="{{$ser->name}}">
+                            <img class="img-thumbnail"  src="uploads/{{$ser->images}}" style="height:300px; max-height:300px; max-width:500px;" alt="{{$ser->name}}">
                             <h3 align="center">{{$ser->name}}</h3>
                                 <div class="card-body">
                                     <p>{!! str_limit($ser->description, 30) !!}</p>
@@ -52,7 +53,13 @@
                 <div class="gradient3"   style="cursor: pointer;">
                     <h2 style="color: white !important;" id='top' align="center">TOP 10 SERVICES</h2>
                     <div id="top_content" style="display: none;">
-                        <center><h2>Content 2</h2></center>
+                        <center>
+                            <ol class="list-group custom-counter" id="listtopservices">
+                                @foreach ($topservices as $top)
+                                        <li class="list-group-item liservice" id='{{$top->SV_ID_FK}}'>{!! $top->name !!}</li>  
+                                @endforeach   
+                            </ol>
+                        </center>
                      </div>
                 </div>
                 <div class="gradient4" id="gr4"></div>
@@ -77,11 +84,33 @@
 
 <script>
     function GetContent(id){
+      
+        clicked='viewed';
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               // document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        }
+        xmlhttp.open("GET", "logs/"+id+'/'+clicked, true);
+        xmlhttp.send();
         location.href = 'portal/'+id;
     }
 $(document).ready(function() {
     $(".col-md-6").click(function(){ 
         $id=$(this).attr('id');
+        $clicked='viewed';
+        $.ajax({
+            url: "logs/"+$id+'/'+$clicked,
+            type: "get",
+            data:  '1',
+            success: function (response) {
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+            }
+        });
         location.href = 'portal/'+$id;
      }); 
     
@@ -151,10 +180,23 @@ $(document).ready(function() {
         $('#cat1_content').slideUp("fast");
         $('#top_content').slideUp("fast ");
     }); 
+    
     $(".list-group-item").click(function(){ 
         $id=$(this).attr('id');
-        alert   ($id);
-      //  location.href = 'portal/'+$id;
+        $clicked='viewed';
+      //  alert   ($id);
+      $.ajax({
+            url: "logs/"+$id+'/'+$clicked,
+            type: "get",
+            data:  '1',
+            success: function (response) {
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus, errorThrown);
+            }
+        });
+        location.href = 'portal/'+$id;
      });
      
 
