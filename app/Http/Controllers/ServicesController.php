@@ -20,7 +20,8 @@ class ServicesController extends Controller
             ->join('serviceprov', 'services.SP_ID_FK', '=', 'serviceprov.SP_ID')
             ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
             ->select('services.*', 'serviceprov.name as SP_NAME', 'categories.name as CAT_NAME')
-            ->paginate(10);
+            ->orderBy('services.name')
+            ->paginate(5);
        return view('services.index')->with('services', $services);
     }
 
@@ -54,7 +55,7 @@ class ServicesController extends Controller
         $name =$request->input('name');
         $file = $request->file('image');
         $this->validate($request, [
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:min_width=200,min_height=200',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
         $nameimg = $file->getClientOriginalName();
         $file->move('uploads/', $nameimg);

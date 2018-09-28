@@ -19,28 +19,32 @@ class PortalController extends Controller
             ->join('serviceprov', 'services.SP_ID_FK', '=', 'serviceprov.SP_ID')
             ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
             ->select('services.*', 'serviceprov.name as SP_NAME', 'categories.name as CAT_NAME')
+            ->orderBy('created_date')
             ->limit(4)->get();
         $latestservices = DB::table('services')
             ->join('serviceprov', 'services.SP_ID_FK', '=', 'serviceprov.SP_ID')
             ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
             ->select('services.*', 'serviceprov.name as SP_NAME', 'categories.name as CAT_NAME')
-            ->orderBy('created_date', 'desc')->get();
-            $cat=DB::table('categories')->select('*')->orderBy('CAT_ID', 'asc')->limit(3)->get();
+            ->orderBy('created_date', 'desc')->limit(10)->get();
+            $cat=DB::table('categories')->select('*')->where('name','<>', 'branded')->orderBy('CAT_ID', 'asc')->get();
 
             $topservices= DB::table('logs')
                         ->join('services', 'services.SV_ID', '=', 'logs.SV_ID_FK')
-                        ->select('services.name','SV_ID_FK', DB::raw('count(LOG_ID) as count_subscribe'))
+                        ->join('serviceprov', 'services.SP_ID_FK', '=', 'serviceprov.SP_ID')
+                        ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
+                        ->select('services.name', 'services.description', 'services.images', 'categories.name as CAT_NAME', 'serviceprov.name as SP_NAME', 'SV_ID_FK', DB::raw('count(LOG_ID) as count_subscribe'))
                         ->where('logs.name', '=', 'subscribe')
-                        ->groupBy('services.name','SV_ID_FK')
-                        ->orderBy('count_subscribe', 'desc')->get();
+                        ->groupBy('services.name', 'services.description', 'services.images','categories.name','serviceprov.name',  'SV_ID_FK')
+                        ->orderBy('count_subscribe', 'desc')->limit(10)->get();
        return view('portal')->with('services', $services)->with('latestservices', $latestservices)->with('catlist', $cat)->with('topservices', $topservices);
     }
 
     public function getSvByCatID($id){
         $cat = DB::table('services')
+        ->join('serviceprov', 'services.SP_ID_FK', '=', 'serviceprov.SP_ID')
         ->join('categories', 'services.CAT_ID_FK', '=', 'categories.CAT_ID')
         ->select('services.*', 'categories.name as CAT_NAME')
-        ->where('categories.CAT_ID', $id)
+        ->where('categories.CAT_ID', '9')
         ->orderBy('created_date', 'desc')->get();
         return $cat;
     }

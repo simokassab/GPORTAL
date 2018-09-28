@@ -25,7 +25,7 @@
           <a class="nav-link" href="/GPORTAL/public/portal">Go to Portal</a>    
         </li>
       </ul>
-      
+
     </div>
   </nav>
    

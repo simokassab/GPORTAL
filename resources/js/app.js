@@ -15,6 +15,18 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import fontawesome from '@fortawesome/fontawesome'
+import regular from '@fortawesome/fontawesome-free-regular'
+import solid from '@fortawesome/fontawesome-free-solid'
+import brands from '@fortawesome/fontawesome-free-brands'
+mix.js('resources/assets/js/app.js', 'public/js')
+    .extract([
+        '@fortawesome/fontawesome',
+        '@fortawesome/fontawesome-free-brands',
+        '@fortawesome/fontawesome-free-regular',
+        '@fortawesome/fontawesome-free-solid',
+        '@fortawesome/fontawesome-free-webfonts'
+    ]);
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({

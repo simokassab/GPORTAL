@@ -32,3 +32,4 @@ Route::resource('/services', 'ServicesController');
 Route::resource('/categories', 'CategoriesController');
 Route::resource('/portal', 'PortalController');
 Route::resource('/reports', 'LogsController');
+Route::resource('/Category', 'CategoryController');

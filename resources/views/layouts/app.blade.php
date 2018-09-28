@@ -6,8 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>GPORTAL CMS</title>
+        
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+        
         
    
     <style>
@@ -25,11 +27,12 @@
     </style>
     </head>
     <body>    
-        @include('inc.navbar');
+        @include('inc.navbar')
       <div class="container"> 
           @include('inc.messages')      
         @yield('content')
       </div>  
+      @include('inc.cmsfooter')
       <script type="text/javascript" src="{{ URL::asset('/js/jquery.min.js') }}"></script>
       <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
@@ -41,6 +44,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+        <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 
     </body>
 </html>

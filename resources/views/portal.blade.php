@@ -7,78 +7,119 @@
         <title>G Portal</title>
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+        <style>
+                * { box-sizing: border-box; }
+
+                body { font-family: sans-serif; }
+
+                .carousel {
+                    background-color: #C35E93;
+                }
+
+                .carousel-cell {
+                width: 86%;
+                height: 300px;
+                margin-right: 10px;
+                border-radius: 5px;
+                }
+        </style>
     </head>
     <body >
-           
         <div class="container">
            <div class="gradient1" style="margin-top: 20px; width:100%;"> 
-                <center> <img src="/GPORTAL/img/title.png" style="width: 60%; margin-top: 20px;"  ><br/>
-                <img src="/GPORTAL/img/zainlogo.png"  style="width: 30%; margin-bottom: 20px; "></center>
+                <center> <img src="{{asset('img/title.png')}}" style="width: 60%; margin-top: 20px;"  ><br/>
+                <img src="{{asset('img/zainlogo.png')}}"  style="width: 30%; margin-bottom: 20px; "></center>
             </div>
-            <br/>
-            <div class="gradient2" id="content" style="margin-top:20px;">
-                <div class="row" id="row" style="margin-left:30px; margin-right:30px" >
-               
-                    @foreach ($services as $ser)
-                     <div class="col-md-6" style="margin-top:30px;" id='{{$ser->SV_ID}}'>
-                            <div class="card mb-4 box-shadow">
-                            <img class="img-thumbnail"  src="uploads/{{$ser->images}}" style="height:300px; max-height:300px; max-width:500px;" alt="{{$ser->name}}">
-                            <h3 align="center">{{$ser->name}}</h3>
-                                <div class="card-body">
-                                    <p>{!! str_limit($ser->description, 30) !!}</p>
-                                    <small class="text-muted">Provider: {!! $ser->SP_NAME  !!} </small> 
-                                    <small class="text-muted">/ Category: {!! $ser->CAT_NAME  !!}</small>
-                                 </div>
+            <br/> 
+            <div class="carousel gradient2" style="margin-top:20px;"  data-flickity='{ "freeScroll": true }'>
+                @foreach ($services as $ser)
+                <div class="carousel-cell" id='{{$ser->SV_ID}}'>
+                    <div class="card mb-4 box-shadow">
+                        <img class="img-thumbnail"  src="uploads/{{$ser->images}}" style="height:200px; max-height:300px; max-width:500px;" alt="{{$ser->name}}">
+                        <h3 align="center">{{$ser->name}}</h3>
+                            <div class="card-body">
+                                <p>{!! str_limit($ser->description, 30) !!}</p>
+                                <small class="text-muted">Provider: {!! $ser->SP_NAME  !!} </small> 
+                                <small class="text-muted">/ Category: {!! $ser->CAT_NAME  !!}</small>
                                 </div>
-                        </div> 
-                    
-                    @endforeach
-                </div>   
-            </div>
-            <br>
-            <div id="content2">
-                <div class="gradient3"  style="cursor: pointer;">
-                    <h2 style="color: white" id='latest' align="center">LATEST SERVICES</h2>
-                    <div id="latest_content" style="display: none;">
-                            <center>
-                                <ol class="list-group custom-counter" id="listservices">
-                                    @foreach ($latestservices as $lat)
-                                         <li class="list-group-item liservice" id='{{$lat->SV_ID}}'>{!! $lat->name !!}</li>  
-                                    @endforeach   
-                                </ol></center>
-                     </div>
+                    </div>
+            
                 </div>
-                <div class="gradient4" id="gr4"></div>
-                <div class="gradient3"   style="cursor: pointer;">
-                    <h2 style="color: white !important;" id='top' align="center">TOP 10 SERVICES</h2>
-                    <div id="top_content" style="display: none;">
-                        <center>
-                            <ol class="list-group custom-counter" id="listtopservices">
-                                @foreach ($topservices as $top)
-                                        <li class="list-group-item liservice" id='{{$top->SV_ID_FK}}'>{!! $top->name !!}</li>  
-                                @endforeach   
-                            </ol>
-                        </center>
-                     </div>
+                @endforeach
                 </div>
-                <div class="gradient4" id="gr4"></div>
-                    <div class="gradient3"   style="cursor: pointer;">
-                        <h2 style="color: white !important;" id='cat1' name='{{$catlist[0]->CAT_ID}}' align="center">{{$catlist[0]->name}} SERVICES</h2>
-                        <div id="cat1_content" style="display: none;">
+            <br><br>
+            <div class="gradient4" id="gr4"></div>
+            <br/> <br/>
+            <div id="content2" style="width:100%;">
+                <div class="gradient3"  >
+                    <h2 style="color: white;"  align="center">LATEST</h2>
+                    <div id="latest_content"  class="carousel"   data-flickity='{ "contain": true }'> 
+                            @foreach ($latestservices as $lat)
+                            <div class="carousel-cell" id='{{$lat->SV_ID}}'>
+                                    <div class="card mb-4 box-shadow">
+                                        <img class="img-thumbnail"  src="uploads/{{$lat->images}}" style="height:200px; max-height:300px; max-width:500px;" alt="{{$lat->name}}">
+                                        <h3 align="center">{{$lat->name}}</h3>
+                                            <div class="card-body">
+                                                <p>{!! str_limit($lat->description, 30) !!}
+                                                <small class="text-muted">Provider: {!! $lat->SP_NAME  !!} </small> 
+                                                <small class="text-muted">/ Category: {!! $lat->CAT_NAME  !!}</small></p>
+                                            </div>
+                                    </div>
                             
-                        </div>
+                                </div> 
+                            @endforeach   
+                         </div>
+                </div>
+                <br/> <br/>
+                <div class="gradient4" id="gr4"></div>
+                <br/> <br/>
+                <div class="gradient3"   >
+                    <h2 style="color: white !important;" id='top' align="center">TOP 10 SERVICES</h2>
+                   
+                    <div id="top_content"  class="carousel"  data-flickity='{ "contain": true }'> 
+                        @foreach ($topservices as $lat)
+                        <div class="carousel-cell" id='{{$lat->SV_ID_FK}}'>
+                            <div class="card mb-4 box-shadow">
+                                <img class="img-thumbnail"  src="uploads/{{$lat->images}}" style="height:200px; max-height:300px; max-width:500px;" alt="{{$lat->name}}">
+                                <h3 align="center">{{$lat->name}}</h3>
+                                    <div class="card-body">
+                                        <p>{!! str_limit($lat->description, 30) !!}
+                                        <small class="text-muted">Provider: {!! $lat->SP_NAME  !!} </small> 
+                                        <small class="text-muted">/ Category: {!! $lat->CAT_NAME  !!}</small></p>
+                                    </div>
+                            </div>
+                        </div> 
+                        @endforeach
+                     </div>
+                </div>
+                <br/> <br/>
+                <div class="gradient4" id="gr4"></div>
+                <br/>
+                @foreach ($catlist  as $cat)
+                <div class="gradient3"   >
+                        <h2  id='cat1' name='{{$cat->CAT_ID}}' align="center">
+                           <a  href="Category/{{$cat->CAT_ID}}  ">
+                            {{$cat->name}} </a>
+                        </h2>
                     </div>
-                    <div class="gradient4" id="gr4"></div>
-                    <div class="gradient3"   style="cursor: pointer;">
-                        <h2 style="color: white !important;" id='cat2' name='{{$catlist[1]->CAT_ID}}' align="center">{{$catlist[1]->name}} SERVICES</h2>
-                        <div id="cat2_content" style="display: none;">
-                            <center><h2>Content 3</h2></center>
-                        </div>
-                    </div>
+                @endforeach
+
                     <div class="gradient4" id="gr4"></div>
             </div>
         </div>
+        <br/><br/><br/>
+        @include('inc.footer')
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+        <script>
+               $('.main-gallery').flickity({
+                // options
+                cellAlign: 'left',
+                contain: true
+                });
+                </script>
     </body>
 </html>
 
@@ -97,7 +138,7 @@
         location.href = 'portal/'+id;
     }
 $(document).ready(function() {
-    $(".col-md-6").click(function(){ 
+    $(".carousel-cell").click(function(){ 
         $id=$(this).attr('id');
         $clicked='viewed';
         $.ajax({
@@ -112,74 +153,7 @@ $(document).ready(function() {
             }
         });
         location.href = 'portal/'+$id;
-     }); 
-    
-    $("#latest").click(function(){
-        $('#latest_content').toggle("slide");
-        $('#top_content').slideUp("fast");
-        $('#cat1_content').slideUp("fast");
-        $('#cat2_content').slideUp("fast");
-    }); 
-    $("#top").click(function(){
-        $('#top_content').toggle("slide");
-        $('#latest_content').slideUp("fast");
-        $('#cat1_content').slideUp("fast");
-        $('#cat2_content').slideUp("fast");
-    }); 
-    
-    $("#cat1").click(function(){
-        $('#cat1_content').toggle("slide");
-        $.ajax({
-        url: "portal/getCat/"+$(this).attr('name'),
-        type: "get",
-        data:  $(this).attr('name'),
-        success: function (response) {
-            var output=" <center><ol class='list-group custom-counter'>";
-            for (var i in response) 
-            {
-                output+="<li class='list-group-item' onclick='GetContent(\""+response[i].SV_ID+"\")' id='"+response[i].SV_ID+"'>" + response[i].name + ",  " + response[i].description + "</li>";
-            }
-            output+="</ol></center>";
-            
-            $('#cat1_content').html(output);       
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-           console.log(textStatus, errorThrown);
-        }
-
-
-    });
-       // $('#cat1_content').toggle("slide");
-        $('#latest_content').slideUp("fast");
-        $('#top_content').slideUp("fast");
-        $('#cat2_content').slideUp("fast");
-    }); 
-    $("#cat2").click(function(){
-        $('#cat2_content').toggle("slide");
-        $.ajax({
-            url: "portal/getCat/"+$(this).attr('name'),
-            type: "get",
-            data:  $(this).attr('name'),
-            success: function (response) {
-                var output=" <center><ol class='list-group custom-counter'>";
-                for (var i in response) 
-                {
-                    output+="<li class='list-group-item' onclick='GetContent(\""+response[i].SV_ID+"\")' id='"+response[i].SV_ID+"'>" + response[i].name + ",  " + response[i].description + "</li>";
-                }
-                output+="</ol></center>";
-                
-                $('#cat2_content').html(output);       
-
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-            console.log(textStatus, errorThrown);
-            }
-        });
-        $('#latest_content').slideUp("fast");
-        $('#cat1_content').slideUp("fast");
-        $('#top_content').slideUp("fast ");
-    }); 
+     });   
     
     $(".list-group-item").click(function(){ 
         $id=$(this).attr('id');
