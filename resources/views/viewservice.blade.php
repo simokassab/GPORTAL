@@ -19,31 +19,42 @@
                     </div>      
         <hr/>
             @foreach ($services as $ser)
-                <center><a href="{{ URL::previous() }}" class="btn btn-secondary btn-lg a-btn-slide-text">
-                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
-                        <span><strong>Go Back</strong></span></a> <br/><br/>
+                <center>
+                <div class='row'>
+                    <div class='col-xs-6'>
+                            <a href="{{ URL::previous() }}" class="btn btn-secondary btn-lg a-btn-slide-text" style='margin-left: 20%;'>
+                                    <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+                                    <span><strong>Go Back</strong></span></a>
+                    </div>
+                    <div class='col-xs-6'>
+                            <a href="sms:/1234?body={{$ser->body}}"  class="btn btn-success btn-lg a-btn-slide-text" style='margin-left: 70%;'>
+                                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                                <span><strong>Subscribe</strong></span></a>
+                    </div>
+                </div>  
+                     <br/><br/>
+                            
+                        <img class="img-thumbnail rounded mx-auto d-block" style="max-width: 100%; height: auto;" src='../uploads/{{$ser->images}}' />
+                        <h1 class="display-1">
+                            {{$ser->name}}
+                        </h1>
+                        <hr/>
+                        <h3>
+                            {!!$ser->description!!} 
+                        </h3>
+                        <p>
+                            <span  class="text-left text-muted"> 
+                                Service Provider: {!! $ser->SP_NAME !!} 
+                            </span>
+                            <span  class="text-right text-muted"> 
+                            Category: {!! $ser->CAT_NAME !!} 
+                            </span>
+                        </p>
                     
-                    <img class="img-thumbnail rounded mx-auto d-block" style="max-width: 100%; height: auto;" src='../uploads/{{$ser->images}}' />
-                    <h1 class="display-1">
-                        {{$ser->name}}
-                    </h1>
-                    <hr/>
-                    <h3>
-                        {!!$ser->description!!} 
-                    </h3>
-                    <p>
-                        <span  class="text-left text-muted"> 
-                            Service Provider: {!! $ser->SP_NAME !!} 
-                        </span>
-                        <span  class="text-right text-muted"> 
-                        Category: {!! $ser->CAT_NAME !!} 
-                        </span>
-                    </p>
-                  
-                    <a href="sms:/1234?body={{$ser->body}}"  class="btn btn-success btn-lg a-btn-slide-text" style="width: 50%;">
-                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
-                        <span><strong>Subscribe</strong></span></a>
-                </center>
+                        <a href="sms:/1234?body={{$ser->body}}"  class="btn btn-success btn-lg a-btn-slide-text" style="width: 50%;">
+                            <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                            <span><strong>Subscribe</strong></span></a>
+                    </center>
             @endforeach
         </div>
         <br/><br/><br/>

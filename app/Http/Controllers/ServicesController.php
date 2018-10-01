@@ -22,7 +22,9 @@ class ServicesController extends Controller
             ->select('services.*', 'serviceprov.name as SP_NAME', 'categories.name as CAT_NAME')
             ->orderBy('services.name')
             ->paginate(5);
-       return view('services.index')->with('services', $services);
+            $searchsv=array();
+       // $servp = DB::table('serviceprov')->where('SP_ID', '=', $id)->get();
+       return view('services.index')->with('services', $services)->with('searchsv', $searchsv);
     }
 
     /**
@@ -76,9 +78,9 @@ class ServicesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($request)
     {
-       
+       return 124;
     }
 
     /**

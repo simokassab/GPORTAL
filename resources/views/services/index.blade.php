@@ -2,12 +2,17 @@
 
 @section('content')
     <center><h1>Services </h1></center>
-        <a href="services/create" class="btn btn-primary a-btn-slide-text">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-            <span><strong>Create New</strong></span> 
-                       
-        </a>
-    <hr>
+        <br/>
+        <div class="row">
+            <div class="col-md-6">
+                <a href="services/create" class="btn btn-primary a-btn-slide-text">
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <span><strong>Create New</strong></span> 
+                               
+                </a>
+            </div>
+        </div>
+        <br/>
     @if(count($services)>0)
         <table class='table'>
         @foreach ($services as $serv)

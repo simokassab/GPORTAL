@@ -8,32 +8,13 @@
     <link rel="stylesheet" href="{{asset('css/app.css')}}">
     <link rel="stylesheet" href="{{asset('css/style.css')}}">
     <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
-        <style>
-                * { box-sizing: border-box; }
-
-                body { font-family: sans-serif; }
-
-                .carousel {
-                    background-color: #C35E93;
-                }
-
-                .carousel-cell {
-                width: 86%;
-                height: 300px;
-                margin-right: 10px;
-                border-radius: 5px;
-                }
-
-               
-
-        </style>
     </head>
     <body style='background-image: url("{{asset('img/bg.jpg')}}") !important; '>
             
         <div class="container">
            <div class="gradient1" style="margin-top: 20px; width:100%;"> 
-                <center> <img src="/GPORTAL/img/title.png" style="width: 60%; margin-top: 20px;"  ><br/>
-                <img src="/GPORTAL/img/zainlogo.png"  style="width: 30%; margin-bottom: 20px; "></center>
+            <center> <img src="{{asset('img/title.png')}}" style="width: 60%; margin-top: 20px;"  ><br/>
+                <img src="{{asset('img/zainlogo.png')}}"  style="width: 30%; margin-bottom: 20px; "></center>
             </div>
             <br/> 
             <center><a href="{{ URL::previous() }}" class="btn btn-secondary btn-lg a-btn-slide-text">
@@ -43,11 +24,11 @@
             <div class="gradient4" id="gr4"></div>
            
             @if($services->isEmpty())
-                    <center><h2>No Games fount in this category</h2></center>
+                    <center><h2>No Games found in this category</h2></center>
                 
                     
                 @else 
-                    <div class="carousel gradient2" style="margin-top:20px;"  data-flickity='{ "freeScroll": true }'>
+                    <div style="margin-top:20px;">
                         @foreach ($services as $ser)
                         <div class="carousel-cell" id='{{$ser->SV_ID}}'>
                             <div class="card mb-4 box-shadow">
@@ -61,12 +42,12 @@
                             </div>
                     
                         </div>
+                        <div class="gradient4" id="gr4"></div>
                         @endforeach
                     </div>   
                 @endif
                 
             <br/> <br/>
-            <div class="gradient4" id="gr4"></div>
         </div>
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>

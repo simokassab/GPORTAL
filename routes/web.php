@@ -20,7 +20,8 @@ Route::get('/', function () {
 Route::get('portal/getCat/{id}', 'PortalController@getSvByCatID');
 
 Route::get('logs/{id}/{clicked}', 'LogsController@store');
-Route::get('/reports/s',['uses' => 'logsController@show']);
+
+Route::get('/search/{id)', 'ServicesController@show');
 
 Route::get('/serviceprovider', 'PagesController@serviceprovider');
 Route::get('/services', 'PagesController@services');

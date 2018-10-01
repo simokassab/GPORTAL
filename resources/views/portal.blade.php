@@ -23,6 +23,18 @@
                 margin-right: 10px;
                 border-radius: 5px;
                 }
+                .imgbranded {
+                    height:90px; 
+                    width: 130px; 
+                    max-height:100px; 
+                    max-width:140px;
+                }
+                .brandedtitle {
+                    color: aliceblue;
+                    font-weight: 700;
+                    text-align: center;
+                    font-size: 13pt;    
+                }
         </style>
     </head>
     <body >
@@ -32,22 +44,28 @@
                 <img src="{{asset('img/zainlogo.png')}}"  style="width: 30%; margin-bottom: 20px; "></center>
             </div>
             <br/> 
-            <div class="carousel gradient2" style="margin-top:20px;"  data-flickity='{ "freeScroll": true }'>
-                @foreach ($services as $ser)
-                <div class="carousel-cell" id='{{$ser->SV_ID}}'>
-                    <div class="card mb-4 box-shadow">
-                        <img class="img-thumbnail"  src="uploads/{{$ser->images}}" style="height:200px; max-height:300px; max-width:500px;" alt="{{$ser->name}}">
-                        <h3 align="center">{{$ser->name}}</h3>
-                            <div class="card-body">
-                                <p>{!! str_limit($ser->description, 30) !!}</p>
-                                <small class="text-muted">Provider: {!! $ser->SP_NAME  !!} </small> 
-                                <small class="text-muted">/ Category: {!! $ser->CAT_NAME  !!}</small>
-                                </div>
+            <div class='gradient2' style="margin-top:10px;" >
+                <div class="row">
+                <div class="col-xs-6" id='{{$services[0]->SV_ID}}' style='margin-left: 10%; margin-top: 8%;'>
+                            <img   class="img-thumbnail imgbranded"  src="uploads/{{$services[0]->images}}" style="" >
+                            <p class='brandedtitle'>{{$services[0]->name}}</p>
                     </div>
-            
+                    <div class="col-xs-6" id='{{$services[1]->SV_ID}}' style='margin-left: 8%; margin-top: 8%;'>
+                            <img   class="img-thumbnail imgbranded"  src="uploads/{{$services[1]->images}}"  >
+                            <p class='brandedtitle'>{{$services[1]->name}}</p>
+                    </div>
                 </div>
-                @endforeach
-                </div>
+                <div class="row">
+                        <div class="col-xs-6" id='{{$services[2]->SV_ID}}' style='margin-left: 10%; margin-top: 5%;'>
+                                <img   class="img-thumbnail imgbranded"  src="uploads/{{$services[2]->images}}"  >
+                                <p class='brandedtitle'>{{$services[2]->name}}</p>
+                        </div>
+                        <div class="col-xs-6" id='{{$services[3]->SV_ID}}' style='margin-left: 8%; margin-top: 5%;'>
+                                <img  class="img-thumbnail imgbranded"  src="uploads/{{$services[3]->images}}"  >
+                                <p class='brandedtitle'>{{$services[3]->name}}</p>
+                            </div>
+                    </div>
+            </div>
             <br><br>
             <div class="gradient4" id="gr4"></div>
             <br/> <br/>
@@ -97,12 +115,14 @@
                 <div class="gradient4" id="gr4"></div>
                 <br/>
                 @foreach ($catlist  as $cat)
+                <a  href="Category/{{$cat->CAT_ID}}  ">
                 <div class="gradient3"   >
                         <h2  id='cat1' name='{{$cat->CAT_ID}}' align="center">
-                           <a  href="Category/{{$cat->CAT_ID}}  ">
-                            {{$cat->name}} </a>
+                          
+                            {{$cat->name}} 
                         </h2>
                     </div>
+                </a>
                 @endforeach
 
                     <div class="gradient4" id="gr4"></div>
@@ -110,7 +130,9 @@
         </div>
         <br/><br/><br/>
         @include('inc.footer')
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
+    </body>
+</html>
+<script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
         <script>
@@ -120,9 +142,6 @@
                 contain: true
                 });
                 </script>
-    </body>
-</html>
-
 <script>
     function GetContent(id){
       
@@ -155,7 +174,7 @@ $(document).ready(function() {
         location.href = 'portal/'+$id;
      });   
     
-    $(".list-group-item").click(function(){ 
+    $(".col-xs-6").click(function(){ 
         $id=$(this).attr('id');
         $clicked='viewed';
       //  alert   ($id);
